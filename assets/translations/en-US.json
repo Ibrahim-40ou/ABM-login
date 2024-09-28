@@ -1,0 +1,15 @@
+{
+  "welcome to ABM": "Welcome to ABM",
+  "enter your mobile number to receive the verification code and log in": "Enter your mobile number to receive the verification code and log in",
+  "phone number": "Phone Number",
+  "continue": "Continue",
+  "please enter a phone number": "Enter a phone number",
+  "enter a valid phone number": "Enter a valid phone number",
+  "enter the verification code": "Enter the verification code",
+  "code sent to ": "Code sent to ",
+  "enter the code below to log in": "Enter the code below to log in",
+  "enter the OTP": "Enter the OTP",
+  "OTP must be 6 digits": "OTP must be 6 digits",
+  "login": "Login",
+  "logout": "Logout"
+}
