@@ -7,10 +7,12 @@ import 'core/routing/routes.dart';
 import 'core/sizing/size_config.dart';
 import 'core/theme/theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/auth/presentation/cubit/timer_cubit.dart';
 
 SharedPreferences? arabicCheck;
 SharedPreferences? darkModeCheck;
 SharedPreferences? loginCheck;
+bool? isDarkMode;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,8 @@ void main() async {
   loginCheck = await SharedPreferences.getInstance();
   arabicCheck = await SharedPreferences.getInstance();
   darkModeCheck = await SharedPreferences.getInstance();
+  isDarkMode = darkModeCheck?.getBool('isDarkMode') ?? false;
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -26,7 +30,6 @@ void main() async {
       ],
       path: 'assets/translations',
       saveLocale: true,
-      // startLocale: const Locale('ar', 'DZ'),
       startLocale: arabicCheck!.getBool('isArabic') == null ||
               arabicCheck!.getBool('isArabic') == false
           ? const Locale('en', 'US')
@@ -35,7 +38,15 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(),
+            create: (context) => AuthBloc()
+              ..add(
+                LoadTheme(
+                  isDarkMode: isDarkMode!,
+                ),
+              ),
+          ),
+          BlocProvider<TimerCubit>(
+            create: (context) => TimerCubit(),
           ),
         ],
         child: MyApp(),
@@ -51,28 +62,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        SizeConfig().init(constraints);
-        return MaterialApp.router(
-          title: 'ABM Login',
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          routerConfig: appRouter.config(),
-          theme: light,
-          darkTheme: dark,
-          builder: (context, child) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                textScaler: const TextScaler.linear(1.0),
-              ),
-              child: child!,
-            );
-          },
-        );
-      },
-    );
+    return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final isDarkMode = state is ThemeChanged
+              ? state.isDarkMode
+              : darkModeCheck?.getBool('isDarkMode') ?? false;
+          SizeConfig().init(constraints);
+          return MaterialApp.router(
+            title: 'ABM Login',
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            routerConfig: appRouter.config(),
+            theme: light,
+            darkTheme: dark,
+            themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+                child: child!,
+              );
+            },
+          );
+        },
+      );
+    });
   }
 }

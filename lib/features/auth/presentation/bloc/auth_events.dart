@@ -3,10 +3,10 @@ part of 'auth_bloc.dart';
 @immutable
 sealed class AuthEvent {}
 
-class SendOTP extends AuthEvent {
+class SendOTPRequest extends AuthEvent {
   final String phoneNumber;
 
-  SendOTP({required this.phoneNumber});
+  SendOTPRequest({required this.phoneNumber});
 }
 
 class LoginRequest extends AuthEvent {
@@ -17,3 +17,16 @@ class LoginRequest extends AuthEvent {
 }
 
 class LogoutRequest extends AuthEvent {}
+
+class ChangeTheme extends AuthEvent {
+  final bool isDarkMode;
+
+  ChangeTheme({required this.isDarkMode});
+}
+
+class LoadTheme extends AuthEvent {
+  final bool isDarkMode;
+
+  LoadTheme({required this.isDarkMode});
+}
+

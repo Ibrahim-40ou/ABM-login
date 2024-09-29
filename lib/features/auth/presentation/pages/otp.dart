@@ -1,6 +1,7 @@
 import 'package:abm_login/core/routing/routes.gr.dart';
 import 'package:abm_login/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:abm_login/features/auth/presentation/widgets/button.dart';
+import 'package:abm_login/features/auth/presentation/widgets/loading_indicator.dart';
 import 'package:abm_login/features/auth/presentation/widgets/text.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../cubit/timer_cubit.dart';
 
 @RoutePage()
 class OTP extends StatelessWidget {
@@ -96,6 +99,54 @@ class OTP extends StatelessWidget {
                       validator: _validateOTP,
                     ),
                     Spacer(),
+                    BlocBuilder<TimerCubit, TimerState>(
+                      builder: (context, timerState) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                MyText(
+                                  text: 'resend code in:',
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                MyText(
+                                  text: ' ${timerState.remainingTime}',
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                MyText(
+                                  text: 's',
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            MyButton(
+                              disabled: timerState.isButtonDisabled,
+                              function: timerState.isButtonDisabled
+                                  ? () {}
+                                  : () {
+                                      context.read<TimerCubit>().resetTimer();
+                                      context.read<AuthBloc>().add(
+                                            SendOTPRequest(
+                                              phoneNumber: phoneNumber.trim(),
+                                            ),
+                                          );
+                                    },
+                              height: 50,
+                              color: timerState.isButtonDisabled
+                                  ? Colors.grey
+                                  : Theme.of(context).colorScheme.primary,
+                              child: MyText(
+                                text: 'resend code',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    SizedBox(height: 16),
                     MyButton(
                       function: () {
                         if (_key.currentState!.validate()) {
@@ -109,9 +160,23 @@ class OTP extends StatelessWidget {
                       },
                       height: 50,
                       color: Theme.of(context).colorScheme.primary,
-                      child: MyText(
-                        text: 'login',
-                        color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          if (state is LoginLoading)
+                            Row(
+                              children: [
+                                LoadingIndicator(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                SizedBox(width: 8),
+                              ],
+                            ),
+                          MyText(
+                            text: 'login',
+                            color: Colors.white,
+                          ),
+                        ],
                       ),
                     ),
                   ],

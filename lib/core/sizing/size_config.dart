@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 extension SizeExt on num {
   double get h => this * SizeConfig.screenHeight / 100;
+
   double get w => this * SizeConfig.screenWidth / 100;
+
   double get sp => this * (SizeConfig.screenHeight / 3) / 100;
 }
 

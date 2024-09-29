@@ -20,17 +20,12 @@ class AuthDatasourece {
           },
         ),
       );
-      print('hey1');
       if (response.statusCode == 200) {
-        print('hey2');
         return Result<void>(data: null);
       } else {
-        print('hey3');
-        print(response.body);
         return Result<void>(error: 'Failed to send OTP: ${response.body}');
       }
     } catch (e) {
-      print('hey4');
       return Result<void>(error: e.toString());
     }
   }
@@ -50,17 +45,12 @@ class AuthDatasourece {
           },
         ),
       );
-      print('hey5');
       if (response.statusCode == 200) {
-        print('hey6');
         return Result<void>(data: null);
       } else {
-        print('hey7');
-        print(response.body);
         return Result<void>(error: 'Failed to send OTP: ${response.body}');
       }
     } catch (e) {
-      print('hey8');
       return Result<void>(error: e.toString());
     }
   }

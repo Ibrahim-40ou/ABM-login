@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/widgets/loading_indicator.dart';
 
-
 @RoutePage()
 class InitialScreen extends StatelessWidget {
   const InitialScreen({super.key});
@@ -14,11 +13,11 @@ class InitialScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        bool signedIn = loginCheck!.getBool('loggedIn') == null ||
-            loginCheck!.getBool('loggedIn') == false
+        bool loggedIn = loginCheck!.getBool('loggedIn') == null ||
+                loginCheck!.getBool('loggedIn') == false
             ? false
             : true;
-        if (signedIn) {
+        if (loggedIn) {
           context.router.replaceAll([App()]);
         } else {
           context.router.replaceAll([Login()]);

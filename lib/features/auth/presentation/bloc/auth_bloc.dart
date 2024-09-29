@@ -14,18 +14,29 @@ part 'auth_states.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
-    on<SendOTP>(_sendOTP);
+    on<SendOTPRequest>(_sendOTP);
     on<LoginRequest>(_login);
     on<LogoutRequest>(_logout);
+    on<ChangeTheme>(_changeTheme);
+    on<LoadTheme>(_loadTheme);
   }
 
-  Future<void> _sendOTP(SendOTP event, Emitter<AuthState> emit) async {
+  void _loadTheme(LoadTheme event, Emitter<AuthState> emit) {
+    emit(ThemeChanged(isDarkMode: event.isDarkMode));
+  }
+
+  void _changeTheme(ChangeTheme event, Emitter<AuthState> emit) {
+    darkModeCheck?.setBool('isDarkMode', event.isDarkMode);
+    emit(ThemeChanged(isDarkMode: event.isDarkMode));
+  }
+
+  Future<void> _sendOTP(SendOTPRequest event, Emitter<AuthState> emit) async {
     final Result result = await SendOTPUseCase(
       authRepositoryImpl: AuthRepositoryImpl(
         authDatasourece: AuthDatasourece(),
       ),
     ).call(event.phoneNumber);
-    if(result.isSuccess) {
+    if (result.isSuccess) {
       return emit(SendOTPSuccess());
     } else {
       return emit(SendOTPFailure(failure: result.error));
@@ -39,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         authDatasourece: AuthDatasourece(),
       ),
     ).call(event.phoneNumber, event.otp);
-    if(result.isSuccess) {
+    if (result.isSuccess) {
       loginCheck!.setBool('loggedIn', true);
       return emit(LoginSuccess());
     } else {

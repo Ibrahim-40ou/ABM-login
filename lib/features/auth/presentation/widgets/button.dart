@@ -40,13 +40,13 @@ class MyButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: border
               ? BorderSide(
-            width: 1,
-            color: borderColor != null
-                ? borderColor!
-                : Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
-          )
+                  width: 1,
+                  color: borderColor != null
+                      ? borderColor!
+                      : Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                )
               : BorderSide.none,
         ),
         child: Center(

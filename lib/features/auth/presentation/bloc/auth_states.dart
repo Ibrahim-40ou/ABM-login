@@ -32,3 +32,10 @@ class LogoutFailure extends AuthState {
 
   LogoutFailure({required this.failure});
 }
+
+class ThemeChanged extends AuthState {
+  final bool isDarkMode;
+
+  ThemeChanged({required this.isDarkMode});
+}
+

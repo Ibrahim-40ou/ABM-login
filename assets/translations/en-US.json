@@ -11,5 +11,13 @@
   "enter the OTP": "Enter the OTP",
   "OTP must be 6 digits": "OTP must be 6 digits",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "resend code": "Resend Code",
+  "s": "s",
+  "resend code in:": "Reset code in",
+  "language" : "Language",
+  "arabic" : "Arabic",
+  "english" : "English",
+  "light" : "Light",
+  "dark" : "Dark"
 }

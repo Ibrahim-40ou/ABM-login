@@ -47,7 +47,7 @@ packages:
     source: hosted
     version: "9.2.2"
   auto_route_generator:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: auto_route_generator
       sha256: c9086eb07271e51b44071ad5cff34e889f3156710b964a308c2ab590769e79e6
@@ -103,7 +103,7 @@ packages:
     source: hosted
     version: "2.4.2"
   build_runner:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: build_runner
       sha256: dd09dd4e2b078992f42aac7f1a622f01882a8492fef08486b27ddde929c19f04
