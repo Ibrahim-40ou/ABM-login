@@ -18,6 +18,16 @@ class LoginRequest extends AuthEvent {
 
 class LogoutRequest extends AuthEvent {}
 
+class RegisterRequest extends AuthEvent {
+  final String fullName;
+  final String phoneNumber;
+
+  RegisterRequest({
+    required this.fullName,
+    required this.phoneNumber,
+  });
+}
+
 class ChangeTheme extends AuthEvent {
   final bool isDarkMode;
 
@@ -30,3 +40,8 @@ class LoadTheme extends AuthEvent {
   LoadTheme({required this.isDarkMode});
 }
 
+class PickImageRequest extends AuthEvent {
+  final XFile? selectedImage;
+
+  PickImageRequest({required this.selectedImage});
+}

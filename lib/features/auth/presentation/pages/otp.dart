@@ -1,4 +1,5 @@
 import 'package:abm_login/core/routing/routes.gr.dart';
+import 'package:abm_login/core/utils/common_functions.dart';
 import 'package:abm_login/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:abm_login/features/auth/presentation/widgets/button.dart';
 import 'package:abm_login/features/auth/presentation/widgets/loading_indicator.dart';
@@ -27,12 +28,21 @@ class OTP extends StatelessWidget {
         if (state is LoginSuccess) {
           context.router.replaceAll([InitialRoute()]);
         }
+        if (state is LoginFailure) {
+          Common().showDialogue(
+            context,
+            state.failure!,
+            '',
+            () {},
+            () {},
+          );
+        }
       },
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.all(20),
               child: Form(
                 key: _key,
                 child: Column(

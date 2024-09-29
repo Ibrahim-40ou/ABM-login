@@ -16,4 +16,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Result<void>> login(String phoneNumber, String otp) async {
     return await authDatasourece.login(phoneNumber, otp);
   }
+
+  @override
+  Future<Result<void>> register(String fullName, String phoneNumber) async {
+    return await authDatasourece.register(fullName, phoneNumber);
+  }
 }

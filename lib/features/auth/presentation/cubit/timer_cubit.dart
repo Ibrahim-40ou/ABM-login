@@ -21,7 +21,7 @@ class TimerCubit extends Cubit<TimerState> {
       final secondsLeft = state.remainingTime - 1;
       if (secondsLeft <= 0) {
         _timer?.cancel();
-        emit(TimerState(0, false)); // Enable button after 30 seconds
+        emit(TimerState(0, false));
       } else {
         emit(TimerState(secondsLeft, true));
       }

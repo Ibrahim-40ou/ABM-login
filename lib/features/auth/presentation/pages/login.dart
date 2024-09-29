@@ -31,7 +31,7 @@ class Login extends StatelessWidget {
             body: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: isDarkMode
                       ? Theme.of(context).colorScheme.secondary.withOpacity(0.2)
@@ -42,7 +42,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 width: 100.w,
-                height: 40.h,
+                height: 48.h,
                 child: Form(
                   key: _key,
                   child: Column(
@@ -67,6 +67,26 @@ class Login extends StatelessWidget {
                         validatorFunction: _validatePhoneNumber,
                         type: TextInputType.number,
                         isLast: true,
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const MyText(
+                            text: "don't have an account?",
+                            weight: FontWeight.normal,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              context.router.push(Register());
+                            },
+                            child: MyText(
+                              text: ' register',
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ],
                       ),
                       Spacer(),
                       SizedBox(height: 13),
@@ -216,9 +236,9 @@ class Login extends StatelessWidget {
                           if (_key.currentState!.validate()) {
                             context.read<AuthBloc>().add(SendOTPRequest(
                                 phoneNumber: _phoneNumber.text.trim()));
+                            context.read<TimerCubit>().startTimer();
                             context.router.push(
                                 OTP(phoneNumber: _phoneNumber.text.trim()));
-                            context.read<TimerCubit>().startTimer();
                           }
                         },
                         height: 50,

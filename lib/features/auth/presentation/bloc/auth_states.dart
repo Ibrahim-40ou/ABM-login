@@ -33,9 +33,24 @@ class LogoutFailure extends AuthState {
   LogoutFailure({required this.failure});
 }
 
+class RegisterLoading extends AuthState {}
+
+class RegisterSuccess extends AuthState {}
+
+class RegisterFailure extends AuthState {
+  final String? failure;
+
+  RegisterFailure({required this.failure});
+}
+
 class ThemeChanged extends AuthState {
   final bool isDarkMode;
 
   ThemeChanged({required this.isDarkMode});
 }
 
+class PickImageSuccess extends AuthState {
+  final XFile? selectedImage;
+
+  PickImageSuccess({required this.selectedImage});
+}

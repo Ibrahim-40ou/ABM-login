@@ -1,10 +1,12 @@
 import 'package:abm_login/features/auth/data/datasources/auth_datasource.dart';
 import 'package:abm_login/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:abm_login/features/auth/domain/use_cases/login_usecase.dart';
+import 'package:abm_login/features/auth/domain/use_cases/register_usecase.dart';
 import 'package:abm_login/features/auth/domain/use_cases/send_otp_usecase.dart';
 import 'package:abm_login/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/utils/result.dart';
 
@@ -19,6 +21,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutRequest>(_logout);
     on<ChangeTheme>(_changeTheme);
     on<LoadTheme>(_loadTheme);
+    on<PickImageRequest>(_pickImage);
+    on<RegisterRequest>(_register);
+  }
+
+  Future<void> _register(
+    RegisterRequest event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(RegisterLoading());
+    final Result result = await RegisterUseCase(
+      authRepositoryImpl: AuthRepositoryImpl(
+        authDatasourece: AuthDatasourece(),
+      ),
+    ).call(
+      event.fullName,
+      event.phoneNumber,
+    );
+    if (result.isSuccess) {
+      return emit(RegisterSuccess());
+    } else {
+      return emit(RegisterFailure(failure: result.error));
+    }
+  }
+
+  Future<void> _pickImage(
+    PickImageRequest event,
+    Emitter<AuthState> emit,
+  ) async {
+    return emit(PickImageSuccess(selectedImage: event.selectedImage));
   }
 
   void _loadTheme(LoadTheme event, Emitter<AuthState> emit) {

@@ -48,7 +48,35 @@ class AuthDatasourece {
       if (response.statusCode == 200) {
         return Result<void>(data: null);
       } else {
-        return Result<void>(error: 'Failed to send OTP: ${response.body}');
+        return Result<void>(error: 'Failed to login: ${response.body}');
+      }
+    } catch (e) {
+      return Result<void>(error: e.toString());
+    }
+  }
+
+  Future<Result<void>> register(
+    String fullName,
+    String phoneNumber,
+  ) async {
+    try {
+      var response = await http.post(
+        Uri.parse('${baseUrl}register'),
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(
+          {
+            "name": fullName,
+            "phone": phoneNumber,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return Result<void>(data: null);
+      } else {
+        return Result<void>(error: 'Failed to register: ${response.body}');
       }
     } catch (e) {
       return Result<void>(error: e.toString());
