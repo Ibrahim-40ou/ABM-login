@@ -1,27 +1,32 @@
+import 'package:abm_login/core/sizing/size_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyText extends StatelessWidget {
+class CustomText extends StatelessWidget {
   final String text;
-  final double size;
+  final double? size;
   final FontWeight weight;
   final Color? color;
   final TextAlign? align;
   final TextOverflow? overflow;
   final TextDecoration? decoration;
   final int? maxLines;
+  final FontStyle? fontStyle;
+  final double? lineHeight;
 
-  const MyText({
+  const CustomText({
     super.key,
     required this.text,
-    this.size = 16,
+    this.size,
     this.weight = FontWeight.normal,
     this.color,
     this.align,
     this.overflow,
     this.decoration,
     this.maxLines,
+    this.fontStyle,
+    this.lineHeight,
   });
 
   @override
@@ -29,10 +34,12 @@ class MyText extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.cairo(
-        fontSize: size,
+        fontSize: size ?? 5.5.sp,
         fontWeight: weight,
         color: color ?? Theme.of(context).textTheme.bodyMedium?.color,
         decoration: decoration,
+        fontStyle: fontStyle,
+        height: lineHeight,
       ),
       textAlign: align ??
           (Localizations.localeOf(context).toString() == 'en_US'

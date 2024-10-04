@@ -7,7 +7,7 @@ import 'package:abm_login/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
+import '../../../../core/api/https_consumer.dart';
 import '../../../../core/utils/result.dart';
 
 part 'auth_events.dart';
@@ -32,7 +32,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(RegisterLoading());
     final Result result = await RegisterUseCase(
       authRepositoryImpl: AuthRepositoryImpl(
-        authDatasourece: AuthDatasourece(),
+        authDatasourece: AuthDatasource(
+          httpsConsumer: HttpsConsumer(),
+        ),
       ),
     ).call(
       event.fullName,
@@ -64,7 +66,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _sendOTP(SendOTPRequest event, Emitter<AuthState> emit) async {
     final Result result = await SendOTPUseCase(
       authRepositoryImpl: AuthRepositoryImpl(
-        authDatasourece: AuthDatasourece(),
+        authDatasourece: AuthDatasource(
+          httpsConsumer: HttpsConsumer(),
+        ),
       ),
     ).call(event.phoneNumber);
     if (result.isSuccess) {
@@ -78,7 +82,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(LoginLoading());
     final Result result = await LoginUseCase(
       authRepositoryImpl: AuthRepositoryImpl(
-        authDatasourece: AuthDatasourece(),
+        authDatasourece: AuthDatasource(
+          httpsConsumer: HttpsConsumer(),
+        ),
       ),
     ).call(event.phoneNumber, event.otp);
     if (result.isSuccess) {

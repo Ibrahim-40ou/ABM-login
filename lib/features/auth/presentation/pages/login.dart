@@ -1,16 +1,17 @@
-import 'package:abm_login/core/routing/routes.gr.dart';
 import 'package:abm_login/core/sizing/size_config.dart';
-import 'package:abm_login/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:abm_login/features/auth/presentation/cubit/timer_cubit.dart';
-import 'package:abm_login/features/auth/presentation/widgets/button.dart';
+import 'package:abm_login/core/utils/common_functions.dart';
 import 'package:abm_login/features/auth/presentation/widgets/text.dart';
 import 'package:abm_login/features/auth/presentation/widgets/text_form_field.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../main.dart';
+import '../../../../core/routing/routes.gr.dart';
+import '../bloc/auth_bloc.dart';
+import '../cubit/timer_cubit.dart';
+import '../widgets/button.dart';
 
 @RoutePage()
 class Login extends StatelessWidget {
@@ -21,235 +22,98 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode =
-        Theme.of(context).brightness == Brightness.dark ? true : false;
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SendOTPFailure) {
+          Common().showDialogue(
+            context,
+            state.failure!,
+            '',
+            () {},
+            () {},
+          );
+        }
+      },
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            body: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: isDarkMode
-                      ? Theme.of(context).colorScheme.secondary.withOpacity(0.2)
-                      : Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                width: 100.w,
-                height: 48.h,
-                child: Form(
-                  key: _key,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      MyText(
-                        text: 'welcome to ABM',
-                        weight: FontWeight.bold,
-                        size: 24,
+            body: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                key: _key,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    CustomButton(
+                      function: () {
+                        context.router.popForced(true);
+                      },
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(0.2),
+                      width: 12.w,
+                      height: 6.h,
+                      child: Icon(
+                        CupertinoIcons.back,
+                        color: Theme.of(context).textTheme.bodyMedium!.color,
                       ),
-                      MyText(
-                        text:
-                            'enter your mobile number to receive the verification code and log in',
-                        color: Theme.of(context).textTheme.labelMedium!.color,
-                        overflow: TextOverflow.visible,
-                      ),
-                      SizedBox(height: 16),
-                      MyField(
-                        controller: _phoneNumber,
-                        labelText: 'phone number'.tr(),
-                        validatorFunction: _validatePhoneNumber,
-                        type: TextInputType.number,
-                        isLast: true,
-                      ),
-                      SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const MyText(
-                            text: "don't have an account?",
-                            weight: FontWeight.normal,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              context.router.push(Register());
-                            },
-                            child: MyText(
-                              text: ' register',
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      SizedBox(height: 13),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          MyButton(
-                            width: 30,
-                            function: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Container(
-                                    padding: EdgeInsets.zero,
-                                    decoration: BoxDecoration(
-                                      color: isDarkMode
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .secondary
-                                              .withOpacity(0.2)
-                                          : Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                      ),
-                                    ),
-                                    width: 100.w,
-                                    height: 18.h,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        MyButton(
-                                          function: () {
-                                            context.setLocale(
-                                                const Locale('en', 'US'));
-                                            arabicCheck!
-                                                .setBool('isArabic', false);
-                                            context.router.popForced();
-                                          },
-                                          color: Colors.transparent,
-                                          child: MyText(
-                                            text: 'english',
-                                          ),
-                                        ),
-                                        MyButton(
-                                          function: () {
-                                            arabicCheck!
-                                                .setBool('isArabic', true);
-                                            context.setLocale(
-                                                const Locale('ar', 'DZ'));
-                                            context.router.popForced();
-                                          },
-                                          color: Colors.transparent,
-                                          child: MyText(
-                                            text: 'arabic',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
+                    ),
+                    SizedBox(height: 1.h),
+                    CustomText(
+                      text: 'step 1 of 2',
+                      color: Theme.of(context).colorScheme.primary,
+                      weight: FontWeight.w500,
+                    ),
+                    SizedBox(height: 1.h),
+                    CustomText(
+                      text: 'enter your mobile number',
+                      size:
+                          Localizations.localeOf(context).toString() == 'en_US'
+                              ? 11.sp
+                              : 8.sp,
+                      weight: FontWeight.bold,
+                      lineHeight: 0.1.h,
+                    ),
+                    SizedBox(height: 1.h),
+                    CustomText(
+                      text:
+                          "we'll send you a 6-digit verification code to your mobile number to confirm your account",
+                    ),
+                    SizedBox(height: 2.h),
+                    CustomField(
+                      controller: _phoneNumber,
+                      labelText: 'phone number'.tr(),
+                      type: TextInputType.number,
+                      validatorFunction: _validatePhoneNumber,
+                      isLast: true,
+                    ),
+                    Spacer(),
+                    CustomButton(
+                      function: () {
+                        if (_key.currentState!.validate()) {
+                          context.read<AuthBloc>().add(
+                                SendOTPRequest(
+                                  phoneNumber: _phoneNumber.text.trim(),
+                                ),
                               );
-                            },
-                            color: Colors.transparent,
-                            child: Icon(
-                              Icons.language,
-                              size: 24,
-                              color:
-                                  Theme.of(context).textTheme.bodyMedium!.color,
+                          context.read<TimerCubit>().startTimer();
+                          context.router.push(
+                            OTP(
+                              phoneNumber: _phoneNumber.text.trim(),
                             ),
-                          ),
-                          SizedBox(width: 8),
-                          MyButton(
-                            width: 30,
-                            function: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Container(
-                                    padding: EdgeInsets.zero,
-                                    decoration: BoxDecoration(
-                                      color: isDarkMode
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .secondary
-                                              .withOpacity(0.2)
-                                          : Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                      ),
-                                    ),
-                                    width: 100.w,
-                                    height: 18.h,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        MyButton(
-                                          function: () {
-                                            context.read<AuthBloc>().add(
-                                                  ChangeTheme(
-                                                    isDarkMode: true,
-                                                  ),
-                                                );
-                                            context.router.popForced();
-                                          },
-                                          color: Colors.transparent,
-                                          child: MyText(
-                                            text: 'dark',
-                                          ),
-                                        ),
-                                        MyButton(
-                                          function: () {
-                                            context.read<AuthBloc>().add(
-                                                  ChangeTheme(
-                                                    isDarkMode: false,
-                                                  ),
-                                                );
-                                            context.router.popForced();
-                                          },
-                                          color: Colors.transparent,
-                                          child: MyText(
-                                            text: 'light',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            color: Colors.transparent,
-                            child: Icon(
-                              Icons.dark_mode_outlined,
-                              size: 24,
-                              color:
-                                  Theme.of(context).textTheme.bodyMedium!.color,
-                            ),
-                          ),
-                        ],
+                          );
+                        }
+                      },
+                      height: 6.h,
+                      color: Theme.of(context).colorScheme.primary,
+                      child: CustomText(
+                        text: 'send OTP',
+                        color: Colors.white,
                       ),
-                      SizedBox(height: 13),
-                      MyButton(
-                        function: () {
-                          if (_key.currentState!.validate()) {
-                            context.read<AuthBloc>().add(SendOTPRequest(
-                                phoneNumber: _phoneNumber.text.trim()));
-                            context.read<TimerCubit>().startTimer();
-                            context.router.push(
-                                OTP(phoneNumber: _phoneNumber.text.trim()));
-                          }
-                        },
-                        height: 50,
-                        color: Theme.of(context).colorScheme.primary,
-                        child: MyText(
-                          text: 'continue',
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

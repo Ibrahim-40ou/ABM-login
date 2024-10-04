@@ -3,7 +3,7 @@ import 'package:abm_login/features/auth/data/datasources/auth_datasource.dart';
 import 'package:abm_login/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final AuthDatasourece authDatasourece;
+  final AuthDatasource authDatasourece;
 
   AuthRepositoryImpl({required this.authDatasourece});
 

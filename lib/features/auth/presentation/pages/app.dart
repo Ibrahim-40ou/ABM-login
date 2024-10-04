@@ -28,14 +28,14 @@ class App extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    MyText(text: 'welcome to ABM'),
+                    CustomText(text: 'welcome to ABM'),
                     SizedBox(height: 20),
-                    MyButton(
+                    CustomButton(
                       function: () {
                         context.read<AuthBloc>().add(LogoutRequest());
                       },
                       color: Theme.of(context).colorScheme.primary,
-                      child: MyText(
+                      child: CustomText(
                         text: 'logout',
                         color: Colors.white,
                       ),

@@ -20,12 +20,12 @@ class InitialScreen extends StatelessWidget {
         if (loggedIn) {
           context.router.replaceAll([App()]);
         } else {
-          context.router.replaceAll([Login()]);
+          context.router.replaceAll([Landing()]);
         }
         return SafeArea(
           child: Scaffold(
             body: Center(
-              child: LoadingIndicator(
+              child: CustomLoadingIndicator(
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),

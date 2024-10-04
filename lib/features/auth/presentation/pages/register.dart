@@ -65,7 +65,7 @@ class Register extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      MyButton(
+                      CustomButton(
                         function: () {
                           context.router.popForced(true);
                         },
@@ -73,21 +73,21 @@ class Register extends StatelessWidget {
                             .colorScheme
                             .secondary
                             .withOpacity(0.2),
-                        width: 48,
-                        height: 48,
+                        width: 12.w,
+                        height: 6.h,
                         child: Icon(
                           CupertinoIcons.back,
                           color: Theme.of(context).textTheme.bodyMedium!.color,
                         ),
                       ),
-                      SizedBox(height: 20),
-                      MyText(
+                      SizedBox(height: 2.h),
+                      CustomText(
                         text: 'register',
-                        size: 24,
+                        size: 8.5.sp,
                         weight: FontWeight.bold,
                       ),
-                      MyText(text: 'create a new account'),
-                      SizedBox(height: 20),
+                      CustomText(text: 'create a new account'),
+                      SizedBox(height: 2.h),
                       Center(
                         child: GestureDetector(
                           onTap: () async {
@@ -128,26 +128,26 @@ class Register extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
-                      MyField(
+                      SizedBox(height: 2.h),
+                      CustomField(
                         controller: _fullName,
                         labelText: 'full name'.tr(),
                       ),
-                      SizedBox(height: 20),
-                      MyField(
+                      SizedBox(height: 2.h),
+                      CustomField(
                         controller: _phoneNumber,
                         labelText: 'phone number'.tr(),
                         type: TextInputType.number,
                         validatorFunction: _validateField,
                       ),
-                      SizedBox(height: 20),
-                      MyField(
+                      SizedBox(height: 2.h),
+                      CustomField(
                         controller: _governorate,
                         labelText: 'governorate'.tr(),
                         isLast: true,
                       ),
-                      SizedBox(height: 40),
-                      MyButton(
+                      SizedBox(height: 4.h),
+                      CustomButton(
                         function: () {
                           if (_key.currentState!.validate()) {
                             context.read<AuthBloc>().add(
@@ -161,7 +161,7 @@ class Register extends StatelessWidget {
                             }
                           }
                         },
-                        height: 50,
+                        height: 6.h,
                         color: Theme.of(context).colorScheme.primary,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -169,26 +169,26 @@ class Register extends StatelessWidget {
                             if (state is RegisterLoading)
                               Row(
                                 children: [
-                                  LoadingIndicator(
+                                  CustomLoadingIndicator(
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   ),
                                   SizedBox(width: 8),
                                 ],
                               ),
-                            MyText(
+                            CustomText(
                               text: 'register',
                               color: Colors.white,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: 2.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const MyText(
+                          const CustomText(
                             text: "already have an account?",
                             weight: FontWeight.normal,
                           ),
@@ -196,7 +196,7 @@ class Register extends StatelessWidget {
                             onTap: () {
                               context.router.popForced();
                             },
-                            child: MyText(
+                            child: CustomText(
                               text: ' login',
                               color: Theme.of(context).colorScheme.primary,
                             ),

@@ -23,31 +23,31 @@ class Common {
           },
           child: AlertDialog(
             backgroundColor: Colors.white,
-            title: MyText(
+            title: CustomText(
               text: errorText.isNotEmpty ? 'error occurred' : 'confirmation',
               color: errorText.isNotEmpty
                   ? Theme.of(context).colorScheme.error
                   : Theme.of(context).colorScheme.primary,
             ),
-            content: MyText(
+            content: CustomText(
               text: errorText.isNotEmpty ? errorText : message,
               color: Colors.black,
             ),
             actions: <Widget>[
-              MyButton(
+              CustomButton(
                 function: () {
                   context.router.popForced(true);
                   confirmFunction();
                 },
                 color: Theme.of(context).colorScheme.primary,
-                child: MyText(
+                child: CustomText(
                   text: errorText.isNotEmpty ? 'okay' : 'confirm',
                   color: Colors.white,
                 ),
               ),
               errorText.isNotEmpty
                   ? Container()
-                  : MyButton(
+                  : CustomButton(
                       border: true,
                       borderColor: Colors.black,
                       function: () {
@@ -55,7 +55,7 @@ class Common {
                         exitDialogue();
                       },
                       color: Colors.white,
-                      child: const MyText(
+                      child: const CustomText(
                         text: 'cancel',
                         color: Colors.black,
                       ),

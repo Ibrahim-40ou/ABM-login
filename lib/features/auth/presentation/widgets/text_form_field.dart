@@ -3,7 +3,7 @@ import 'package:abm_login/features/auth/presentation/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyField extends StatelessWidget {
+class CustomField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final bool isPassword;
@@ -17,8 +17,9 @@ class MyField extends StatelessWidget {
   final Function? suffixIconFunction;
   final String? Function(String?)? validatorFunction;
   final bool? enabled;
+  final FocusNode? focusNode;
 
-  const MyField({
+  const CustomField({
     super.key,
     required this.controller,
     required this.labelText,
@@ -32,7 +33,7 @@ class MyField extends StatelessWidget {
     this.suffixIcon,
     this.suffixIconFunction,
     this.validatorFunction,
-    this.enabled,
+    this.enabled, this.focusNode,
   });
 
   @override
@@ -41,7 +42,7 @@ class MyField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyText(
+        CustomText(
           text: labelText,
           weight: FontWeight.bold,
           size: 18,
@@ -50,6 +51,7 @@ class MyField extends StatelessWidget {
         SizedBox(
           width: width ?? 100.w,
           child: TextFormField(
+            focusNode: focusNode,
             enabled: enabled,
             controller: controller,
             obscureText: showPassword,

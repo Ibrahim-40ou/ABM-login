@@ -34,5 +34,14 @@
   "cancel": "Cancel",
   "confirmation": "Confirmation",
   "confirm": "Confirm",
-  "this field is required": "This field is required"
+  "this field is required": "This field is required",
+  "either login or register to continue and use the app": "Either login or create an account to continue and use the app",
+  "step 1 of 2" : "Step 1 of 2",
+  "step 2 of 2" : "Step 2 of 2",
+  "enter your mobile number" : "Enter your mobile number",
+  "we'll send you a 6-digit verification code to your mobile number to confirm your account" : "We'll send you a 6-digit verification code to your mobile number to confirm your account",
+  "send OTP": "Send OTP",
+  "enter 6-digit verification code" : "Enter 6-digit verification code",
+  "please enter the 6-digit verification code we sent you at" : "Please enter the 6-digit verification code we sent you at",
+  "enter the code sent to": "Enter the code sent to"
 }

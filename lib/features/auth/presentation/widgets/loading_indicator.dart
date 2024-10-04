@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class LoadingIndicator extends StatelessWidget {
+class CustomLoadingIndicator extends StatelessWidget {
   final Color color;
 
-  const LoadingIndicator({
+  const CustomLoadingIndicator({
     super.key,
     required this.color,
   });

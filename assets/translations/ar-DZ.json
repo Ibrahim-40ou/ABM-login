@@ -34,5 +34,14 @@
   "cancel": "الغاء",
   "confirmation": "هل انت متأكد؟",
   "confirm": "تأكيد",
-  "this field is required": "هذا الحقل مطلوب"
+  "this field is required": "هذا الحقل مطلوب",
+  "either login or register to continue and use the app": "قم بانشاء حساب او تسجيل الدخول للمتابعة واسخدام التطبيق",
+  "step 1 of 2" : "الخطوة 1 من 2",
+  "step 2 of 2" : "الخطوة 2 من 2",
+  "enter your mobile number" : "أدخل رقم هاتفك",
+  "we'll send you a 6-digit verification code to your mobile number to confirm your account" : "سنرسل رمز تحقق مكون من 6 اقام لهاتفك للتحقق من حسابك",
+  "send OTP": "ارسل الرمز",
+  "enter 6-digit verification code" : "ادخل رمز التحقق",
+  "please enter the 6-digit verification code we sent you at" : "الرجاء ادخال رمز التحقق المكون من 6 ارقام المرسل على",
+  "enter the code sent to": "ارسل الرمز المرسل على"
 }
