@@ -1,4 +1,6 @@
 import 'package:abm_login/core/theme/colors.dart';
+import 'package:abm_login/core/routing/navigation_cubit.dart';
+import 'package:abm_login/core/theme/theme_state/theme_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +16,7 @@ import 'features/auth/presentation/cubit/timer_cubit.dart';
 SharedPreferences? arabicCheck;
 SharedPreferences? darkModeCheck;
 SharedPreferences? loginCheck;
+SharedPreferences? accessTokenPreferences;
 bool? isDarkMode;
 
 void main() async {
@@ -22,7 +25,9 @@ void main() async {
   loginCheck = await SharedPreferences.getInstance();
   arabicCheck = await SharedPreferences.getInstance();
   darkModeCheck = await SharedPreferences.getInstance();
+  accessTokenPreferences = await SharedPreferences.getInstance();
   isDarkMode = darkModeCheck?.getBool('isDarkMode') ?? false;
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(
     EasyLocalization(
@@ -40,15 +45,21 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc()
+            create: (context) => AuthBloc(),
+          ),
+          BlocProvider<TimerCubit>(
+            create: (context) => TimerCubit(),
+          ),
+          BlocProvider<NavigationCubit>(
+            create: (context) => NavigationCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ThemeBloc()
               ..add(
                 LoadTheme(
                   isDarkMode: isDarkMode!,
                 ),
               ),
-          ),
-          BlocProvider<TimerCubit>(
-            create: (context) => TimerCubit(),
           ),
         ],
         child: MyApp(),
@@ -64,50 +75,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          final isDarkMode = state is ThemeChanged
-              ? state.isDarkMode
-              : darkModeCheck?.getBool('isDarkMode') ?? false;
-          SystemChrome.setSystemUIOverlayStyle(
-            SystemUiOverlayStyle(
-              systemNavigationBarColor: isDarkMode
-                  ? MyColors.backgroundDark
-                  : MyColors.backgroundLight,
-              systemNavigationBarIconBrightness:
-                  isDarkMode ? Brightness.light : Brightness.dark,
-              statusBarColor: isDarkMode
-                  ? MyColors.backgroundDark
-                  : MyColors.backgroundLight,
-              statusBarBrightness:
-                  isDarkMode ? Brightness.dark : Brightness.light,
-              statusBarIconBrightness:
-                  isDarkMode ? Brightness.light : Brightness.dark,
-            ),
-          );
-          SizeConfig().init(constraints);
-          return MaterialApp.router(
-            title: 'ABM Login',
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            routerConfig: appRouter.config(),
-            theme: light,
-            darkTheme: dark,
-            themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            builder: (context, child) {
-              return MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                child: child!,
-              );
-            },
-          );
-        },
-      );
-    });
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final isDarkMode = state is ThemeChanged
+                ? state.isDarkMode
+                : darkModeCheck?.getBool('isDarkMode') ?? false;
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                systemNavigationBarColor: isDarkMode
+                    ? MyColors.backgroundDark
+                    : MyColors.backgroundLight,
+                systemNavigationBarIconBrightness:
+                    isDarkMode ? Brightness.light : Brightness.dark,
+                statusBarColor: isDarkMode
+                    ? MyColors.backgroundDark
+                    : MyColors.backgroundLight,
+                statusBarBrightness:
+                    isDarkMode ? Brightness.dark : Brightness.light,
+                statusBarIconBrightness:
+                    isDarkMode ? Brightness.light : Brightness.dark,
+              ),
+            );
+            SizeConfig().init(constraints);
+            return MaterialApp.router(
+              title: 'ABM Login',
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              routerConfig: appRouter.config(),
+              theme: light,
+              darkTheme: dark,
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
+                  child: child!,
+                );
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }

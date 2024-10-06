@@ -21,4 +21,18 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Result<void>> register(String fullName, String phoneNumber) async {
     return await authDatasourece.register(fullName, phoneNumber);
   }
+
+  @override
+  Future<Result<void>> fetchCurrentUser() async {
+    return await authDatasourece.fetchCurrentUser();
+  }
+
+  @override
+  Future<Result<void>> updateUserInformation(
+    String fullName,
+  ) async {
+    return await authDatasourece.updateUserInformation(
+      fullName,
+    );
+  }
 }

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../core/theme/theme_state/theme_bloc.dart';
 import '../../../../main.dart';
 
 @RoutePage()
@@ -93,7 +94,7 @@ class Landing extends StatelessWidget {
                                         children: <Widget>[
                                           CustomButton(
                                             function: () {
-                                              context.read<AuthBloc>().add(
+                                              context.read<ThemeBloc>().add(
                                                     ChangeTheme(
                                                       isDarkMode: true,
                                                     ),
@@ -107,7 +108,7 @@ class Landing extends StatelessWidget {
                                           ),
                                           CustomButton(
                                             function: () {
-                                              context.read<AuthBloc>().add(
+                                              context.read<ThemeBloc>().add(
                                                     ChangeTheme(
                                                       isDarkMode: false,
                                                     ),
@@ -205,7 +206,7 @@ class Landing extends StatelessWidget {
                               },
                             );
                           },
-                          width: 25.w,
+                          width: 26.w,
                           color: Colors.transparent,
                           child: Row(
                             children: <Widget>[

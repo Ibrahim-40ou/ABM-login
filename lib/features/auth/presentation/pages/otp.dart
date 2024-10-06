@@ -105,6 +105,7 @@ class OTP extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       cursorColor: Theme.of(context).colorScheme.primary,
                       pinTheme: PinTheme(
+                        fieldWidth: 13.w,
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(10),
                         inactiveColor:

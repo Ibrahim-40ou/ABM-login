@@ -9,6 +9,8 @@ ThemeData light = ThemeData(
     onPrimary: Colors.white,
     secondary: MyColors.secondaryLight,
     onSecondary: Colors.white,
+    tertiary: MyColors.accentLight,
+    onTertiary: Colors.white,
     error: MyColors.error,
   ),
   textTheme: const TextTheme(
@@ -35,6 +37,8 @@ ThemeData dark = ThemeData(
     onPrimary: Colors.white,
     secondary: MyColors.secondaryDark,
     onSecondary: Colors.white,
+    tertiary: MyColors.accentDark,
+    onTertiary: Colors.white,
     error: MyColors.error,
   ),
   textTheme: const TextTheme(

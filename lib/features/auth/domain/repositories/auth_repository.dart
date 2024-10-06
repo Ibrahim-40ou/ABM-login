@@ -4,4 +4,8 @@ abstract class AuthRepository {
   Future<void> login(String phoneNumber, String otp);
 
   Future<void> register(String fullName, String phoneNumber);
+
+  Future<void> fetchCurrentUser();
+
+  Future<void> updateUserInformation(String fullName);
 }

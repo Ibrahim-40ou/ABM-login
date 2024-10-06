@@ -28,20 +28,16 @@ class RegisterRequest extends AuthEvent {
   });
 }
 
-class ChangeTheme extends AuthEvent {
-  final bool isDarkMode;
-
-  ChangeTheme({required this.isDarkMode});
-}
-
-class LoadTheme extends AuthEvent {
-  final bool isDarkMode;
-
-  LoadTheme({required this.isDarkMode});
-}
-
 class PickImageRequest extends AuthEvent {
   final XFile? selectedImage;
 
   PickImageRequest({required this.selectedImage});
+}
+
+class GetCurrentUserEvent extends AuthEvent {}
+
+class UpdateProfileRequest extends AuthEvent {
+  final String fullName;
+
+  UpdateProfileRequest({required this.fullName});
 }

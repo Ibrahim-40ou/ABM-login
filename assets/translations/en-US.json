@@ -43,5 +43,9 @@
   "send OTP": "Send OTP",
   "enter 6-digit verification code" : "Enter 6-digit verification code",
   "please enter the 6-digit verification code we sent you at" : "Please enter the 6-digit verification code we sent you at",
-  "enter the code sent to": "Enter the code sent to"
+  "enter the code sent to": "Enter the code sent to",
+  "profile information" : "Profile Information",
+  "theme": "Theme",
+  "edit profile information" : "Edit Profile Information",
+  "save" : "Save"
 }

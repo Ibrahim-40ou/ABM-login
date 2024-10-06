@@ -7,7 +7,7 @@ class MyColors {
   static const Color textDark = Color(0xFFF9FAFB);
   static const Color primaryLight = Color(0xFF003366);
   static const Color primaryDark = Color(0xFF003366);
-  static const Color secondaryLight = Color(0xFFA5BACF);
+  static const Color secondaryLight = Color(0xFFCAD4DF);
   static const Color secondaryDark = Color(0xFF1D4A77);
   static const Color accentLight = Color(0xFF84A4C3);
   static const Color accentDark = Color(0xFF849AAE);

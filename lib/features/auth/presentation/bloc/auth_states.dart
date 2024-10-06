@@ -43,14 +43,32 @@ class RegisterFailure extends AuthState {
   RegisterFailure({required this.failure});
 }
 
-class ThemeChanged extends AuthState {
-  final bool isDarkMode;
-
-  ThemeChanged({required this.isDarkMode});
-}
-
 class PickImageSuccess extends AuthState {
   final XFile? selectedImage;
 
   PickImageSuccess({required this.selectedImage});
+}
+
+class GetCurrentUserLoading extends AuthState {}
+
+class GetCurrentUserSuccess extends AuthState {
+  final UserEntity user;
+
+  GetCurrentUserSuccess({required this.user});
+}
+
+class GetCurrentUserFailure extends AuthState {
+  final String? failure;
+
+  GetCurrentUserFailure({required this.failure});
+}
+
+class UpdateProfileLoading extends AuthState {}
+
+class UpdateProfileSuccess extends AuthState {}
+
+class UpdateProfileFailure extends AuthState {
+  final String? failure;
+
+  UpdateProfileFailure({required this.failure});
 }

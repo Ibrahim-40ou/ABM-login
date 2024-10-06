@@ -1,7 +1,9 @@
 import 'package:abm_login/core/routing/routes.gr.dart';
+import 'package:abm_login/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:abm_login/main.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/auth/presentation/widgets/loading_indicator.dart';
 
@@ -19,6 +21,7 @@ class InitialScreen extends StatelessWidget {
             : true;
         if (loggedIn) {
           context.router.replaceAll([App()]);
+          context.read<AuthBloc>().add(GetCurrentUserEvent());
         } else {
           context.router.replaceAll([Landing()]);
         }

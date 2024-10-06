@@ -18,6 +18,7 @@ class CustomField extends StatelessWidget {
   final String? Function(String?)? validatorFunction;
   final bool? enabled;
   final FocusNode? focusNode;
+  final Function(String?)? onChanged;
 
   const CustomField({
     super.key,
@@ -33,7 +34,9 @@ class CustomField extends StatelessWidget {
     this.suffixIcon,
     this.suffixIconFunction,
     this.validatorFunction,
-    this.enabled, this.focusNode,
+    this.enabled,
+    this.focusNode,
+    this.onChanged,
   });
 
   @override
@@ -45,12 +48,15 @@ class CustomField extends StatelessWidget {
         CustomText(
           text: labelText,
           weight: FontWeight.bold,
-          size: 18,
+          size: Localizations.localeOf(context).toString() == 'en_US'
+              ? 5.5.sp
+              : 5.sp,
         ),
         SizedBox(height: 10),
         SizedBox(
           width: width ?? 100.w,
           child: TextFormField(
+            onChanged: onChanged,
             focusNode: focusNode,
             enabled: enabled,
             controller: controller,
@@ -100,6 +106,13 @@ class CustomField extends StatelessWidget {
                 borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.error,
                   width: 1,
+                ),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  width: 1,
+                  color: Theme.of(context).textTheme.labelMedium!.color!.withOpacity(0.4),
                 ),
               ),
               prefixIcon: prefixIcon,

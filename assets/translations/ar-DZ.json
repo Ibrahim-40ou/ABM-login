@@ -43,5 +43,9 @@
   "send OTP": "ارسل الرمز",
   "enter 6-digit verification code" : "ادخل رمز التحقق",
   "please enter the 6-digit verification code we sent you at" : "الرجاء ادخال رمز التحقق المكون من 6 ارقام المرسل على",
-  "enter the code sent to": "ارسل الرمز المرسل على"
+  "enter the code sent to": "ارسل الرمز المرسل على",
+  "profile information" : "معلومات الحساب",
+  "theme": "المظهر",
+  "edit profile information" : "تعديل معلومات الحساب",
+  "save" : "حفظ"
 }

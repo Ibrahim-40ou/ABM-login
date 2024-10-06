@@ -1,8 +1,8 @@
 class UserEntity {
-  final String name;
-  final String profilePicture;
-  final String phoneNumber;
-  final String governorate;
+  late String name;
+  late String profilePicture;
+  late String phoneNumber;
+  late String governorate;
 
   UserEntity({
     required this.name,
